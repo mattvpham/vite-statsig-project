@@ -1,4 +1,4 @@
-import { useGate } from "statsig-react";
+import { Statsig, useGate } from "statsig-react";
 
 export const CallToAction = () => {
   const { value: ctaGate } = useGate("cta_gate");
@@ -7,13 +7,17 @@ export const CallToAction = () => {
   if (!ctaGate) {
     return (
       <div>
-        <button>Please click me</button>
+        <button onClick={() => Statsig.logEvent("cta_clicked")}>
+          Please click me
+        </button>
       </div>
     );
   } else {
     return (
       <div>
-        <button>CLICK ME NOW!!</button>
+        <button onClick={() => Statsig.logEvent("cta_clicked")}>
+          CLICK ME NOW!!
+        </button>
       </div>
     );
   }
